@@ -6,7 +6,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   console.log(process.env.REACT_APP_API_URL);
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/emp/employees`)
+    fetch(`${process.env.REACT_APP_API_URL}/employees`)
       .then((response) => response.json())
       .then((data) => {
         console.log("API Response:", data);

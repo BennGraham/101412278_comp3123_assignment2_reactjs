@@ -29,6 +29,7 @@ function EmployeeView() {
   const [openEditModal, setOpenEditModal] = useState(false);
   const [openDetailModal, setOpenDetailModal] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
+  const [searchInput, setSearchInput] = useState("");
   const [newEmployee, setNewEmployee] = useState({
     first_name: "",
     last_name: "",
@@ -43,10 +44,15 @@ function EmployeeView() {
     fetchEmployees();
   }, []);
 
-  const fetchEmployees = async () => {
+  const fetchEmployees = async (query = "") => {
     try {
       setLoading(true);
-      const response = await api.get("/employees");
+      console.log("Fetching employees with query:", query);
+      console.log(
+        "API URL:",
+        `${process.env.REACT_APP_API_URL}/search?q=${query}`
+      );
+      const response = await api.get(`/search?q=${query}`);
       setEmployees(response.data);
       setError("");
     } catch (err) {
@@ -55,6 +61,12 @@ function EmployeeView() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleSearchChange = (e) => {
+    const query = e.target.value;
+    setSearchInput(query);
+    fetchEmployees(query);
   };
 
   const handleOpenDetailModal = (employee) => {
@@ -149,7 +161,14 @@ function EmployeeView() {
             {error}
           </Alert>
         )}
-
+        <TextField
+          label="Search by Name, Department, or Position"
+          variant="outlined"
+          fullWidth
+          value={searchInput}
+          onChange={handleSearchChange}
+          sx={{ mb: 2 }}
+        />
         <Button variant="contained" onClick={handleOpenAddModal} sx={{ mb: 2 }}>
           Add Employee
         </Button>

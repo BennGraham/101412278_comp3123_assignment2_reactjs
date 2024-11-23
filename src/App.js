@@ -1,33 +1,48 @@
-import { useState, useEffect } from "react";
+import React from "react";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import theme from "./theme";
+import Layout from "./components/Layout";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import EmployeeView from "./components/EmployeeView";
+import AuthRoute from "./components/AuthRoute";
+import { AuthProvider } from "./contexts/AuthContext";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "signup",
+        element: <Signup />,
+      },
+      {
+        path: "employees",
+        element: (
+          <AuthRoute>
+            <EmployeeView />
+          </AuthRoute>
+        ),
+      },
+    ],
+  },
+]);
 
 function App() {
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
-  console.log(process.env.REACT_APP_API_URL);
-  useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/employees`)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("API Response:", data);
-        setData(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("API Error:", err);
-        setError("Failed to fetch data");
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
-
   return (
-    <div>
-      <h1>API Connection Test</h1>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
 

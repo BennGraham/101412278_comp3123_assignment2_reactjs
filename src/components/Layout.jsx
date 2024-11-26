@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet, Link as RouterLink, useNavigate } from "react-router-dom";
+import { Outlet, Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import {
   AppBar,
@@ -41,17 +41,14 @@ function Layout() {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <RouterLink
-              to="/"
-              style={{ color: "white", textDecoration: "none" }}
-            >
+            <Link to="/" style={{ color: "white", textDecoration: "none" }}>
               Employee Manager
-            </RouterLink>
+            </Link>
           </Typography>
 
           {isAuthenticated() ? (
             <>
-              <Button color="inherit" component={RouterLink} to="/employees">
+              <Button color="inherit" component={Link} to="/employees">
                 Employees
               </Button>
               <IconButton size="large" onClick={handleMenu} color="inherit">
@@ -68,10 +65,10 @@ function Layout() {
             </>
           ) : (
             <>
-              <Button color="inherit" component={RouterLink} to="/login">
+              <Button color="inherit" component={Link} to="/login">
                 Login
               </Button>
-              <Button color="inherit" component={RouterLink} to="/signup">
+              <Button color="inherit" component={Link} to="/signup">
                 Sign Up
               </Button>
             </>

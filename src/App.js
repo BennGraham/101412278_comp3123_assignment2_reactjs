@@ -9,12 +9,18 @@ import Signup from "./components/Signup";
 import EmployeeView from "./components/EmployeeView";
 import AuthRoute from "./components/AuthRoute";
 import { AuthProvider } from "./contexts/AuthContext";
+import { EmployeeProvider } from "./contexts/EmployeeContext";
+import Home from "./components/Home";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
     children: [
+      {
+        index: true,
+        element: <Home />,
+      },
       {
         path: "login",
         element: <Login />,
@@ -27,7 +33,9 @@ const router = createBrowserRouter([
         path: "employees",
         element: (
           <AuthRoute>
-            <EmployeeView />
+            <EmployeeProvider>
+              <EmployeeView />
+            </EmployeeProvider>
           </AuthRoute>
         ),
       },

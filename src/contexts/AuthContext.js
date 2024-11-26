@@ -9,18 +9,11 @@ export const AuthProvider = ({ children }) => {
 
   const signup = async (userData) => {
     try {
-      console.log("Signup request URL:", `${api.defaults.baseURL}/user/signup`);
-      console.log("Signup request data:", {
-        ...userData,
-      });
-
       const response = await api.post("/user/signup", {
         username: userData.username,
         email: userData.email,
         password: userData.password,
       });
-
-      console.log("Signup response:", response.data);
 
       if (response.data.message === "User created successfully.") {
         const user = {

@@ -11,7 +11,7 @@ import {
   Alert,
 } from "@mui/material";
 
-function Login() {
+export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -25,10 +25,6 @@ function Login() {
     try {
       setError("");
       setLoading(true);
-
-      console.log("Login attempt with:", {
-        email,
-      });
 
       await login(email, password);
 
@@ -98,5 +94,3 @@ function Login() {
     </Container>
   );
 }
-
-export default Login;

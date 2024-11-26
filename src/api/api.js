@@ -16,3 +16,25 @@ api.interceptors.request.use((config) => {
   }
   return config;
 });
+
+export const apiCall = {
+  fetchEmployees: async (query = "") => {
+    const response = await api.get(`/search?q=${query}`);
+    return response.data;
+  },
+
+  addEmployee: async (employee) => {
+    const response = await api.post("/employees", employee);
+    return response.data;
+  },
+
+  updateEmployee: async (id, employee) => {
+    const response = await api.put(`/employees/${id}`, employee);
+    return response.data;
+  },
+
+  deleteEmployee: async (id) => {
+    const response = await api.delete(`/employees?id=${id}`);
+    return response.data;
+  },
+};

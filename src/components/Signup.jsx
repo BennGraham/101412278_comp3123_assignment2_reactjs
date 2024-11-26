@@ -11,7 +11,7 @@ import {
   Alert,
 } from "@mui/material";
 
-function Signup() {
+export default function Signup() {
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -154,5 +154,3 @@ function Signup() {
     </Container>
   );
 }
-
-export default Signup;

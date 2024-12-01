@@ -16,11 +16,7 @@ export const useEmployeeContext = () => {
   const fetchEmployees = async (query = "") => {
     try {
       setLoading(true);
-      console.log("Fetching employees with query:", query);
-      console.log(
-        "API URL:",
-        `${process.env.REACT_APP_API_URL}/search?q=${query}`
-      );
+
       const response = await api.get(`/search?q=${query}`);
       setEmployees(response.data);
       setError("");
@@ -31,10 +27,6 @@ export const useEmployeeContext = () => {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    console.log("open dialog changed to:", openDialog);
-  }, [openDialog]);
 
   return {
     employees,

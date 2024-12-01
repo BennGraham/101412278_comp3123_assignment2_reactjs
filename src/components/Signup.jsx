@@ -43,12 +43,6 @@ export default function Signup() {
       setError("");
       setLoading(true);
 
-      console.log("Form submission attempt with:", {
-        username: formData.username,
-        email: formData.email,
-        passwordLength: formData.password.length,
-      });
-
       const signupData = {
         username: formData.username.toLowerCase(),
         email: formData.email.toLowerCase(),
